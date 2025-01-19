@@ -1634,6 +1634,7 @@ We leverage the intrinsic rhythm of the image.</CreateSimpleChainingToolTip>
       <Create>Create</Create>
       <Adjust>Adjust</Adjust>
       <SelectCurrentElementWhilePlaying>Select current subtitle while playing</SelectCurrentElementWhilePlaying>
+      <FreeMode>Free-Selection</FreeMode>
       <AutoRepeat>Auto repeat</AutoRepeat>
       <AutoRepeatOn>Auto repeat on</AutoRepeatOn>
       <AutoRepeatCount>Repeat count (times)</AutoRepeatCount>

@@ -2239,6 +2239,7 @@ namespace Nikse.SubtitleEdit.Logic
                     Create = "Create",
                     Adjust = "Adjust",
                     SelectCurrentElementWhilePlaying = "Select current subtitle while playing",
+                    FreeMode = "Free Selection Mode",
 
                     AutoRepeat = "Auto repeat",
                     AutoRepeatOn = "Auto repeat on",

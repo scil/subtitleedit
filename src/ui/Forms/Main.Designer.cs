@@ -366,6 +366,7 @@ namespace Nikse.SubtitleEdit.Forms
             this.labelNextWord = new System.Windows.Forms.Label();
             this.audioVisualizer = new Nikse.SubtitleEdit.Controls.AudioVisualizer();
             this.checkBoxSyncListViewWithVideoWhilePlaying = new System.Windows.Forms.CheckBox();
+            this.checkBoxFreeMode = new System.Windows.Forms.CheckBox(); 
             this.labelVideoInfo = new System.Windows.Forms.Label();
             this.contextMenuStripVideoFileName = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.videoInfoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -3327,6 +3328,7 @@ namespace Nikse.SubtitleEdit.Forms
             this.groupBoxVideo.Controls.Add(this.labelNextWord);
             this.groupBoxVideo.Controls.Add(this.audioVisualizer);
             this.groupBoxVideo.Controls.Add(this.checkBoxSyncListViewWithVideoWhilePlaying);
+            this.groupBoxVideo.Controls.Add(this.checkBoxFreeMode); 
             this.groupBoxVideo.Controls.Add(this.labelVideoInfo);
             this.groupBoxVideo.Controls.Add(this.trackBarWaveformPosition);
             this.groupBoxVideo.Controls.Add(this.panelWaveformControls);
@@ -3411,6 +3413,21 @@ namespace Nikse.SubtitleEdit.Forms
             this.checkBoxSyncListViewWithVideoWhilePlaying.TabIndex = 1;
             this.checkBoxSyncListViewWithVideoWhilePlaying.Text = "Sync listview with movie when playing";
             this.checkBoxSyncListViewWithVideoWhilePlaying.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxFreeMode
+            // 
+            this.checkBoxFreeMode.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.checkBoxFreeMode.AutoSize = true;
+            this.checkBoxFreeMode.Location = new System.Drawing.Point(200, 12); 
+            this.checkBoxFreeMode.Name = "checkBoxFreeMode";
+            this.checkBoxFreeMode.Size = new System.Drawing.Size(83, 17);
+            this.checkBoxFreeMode.TabIndex = 25;
+            this.checkBoxFreeMode.Text = "Free mode";
+            this.checkBoxFreeMode.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            this.checkBoxFreeMode.UseVisualStyleBackColor = true;
+            checkBoxFreeMode.Checked = audioVisualizer.FreeSelectionMode;
+
+            this.checkBoxFreeMode.CheckedChanged += new System.EventHandler(this.checkBoxFreeMode_CheckedChanged);
             // 
             // labelVideoInfo
             // 
@@ -6193,6 +6210,7 @@ namespace Nikse.SubtitleEdit.Forms
         private Nikse.SubtitleEdit.Controls.NikseUpDown numericUpDownSecAdjust2;
         private System.Windows.Forms.Button buttonAdjustSecBack2;
         private System.Windows.Forms.CheckBox checkBoxSyncListViewWithVideoWhilePlaying;
+        private System.Windows.Forms.CheckBox checkBoxFreeMode;
         private System.Windows.Forms.Label labelAdjustF10;
         private System.Windows.Forms.Label labelAdjustF9;
         private System.Windows.Forms.Label labelAdjustF11;

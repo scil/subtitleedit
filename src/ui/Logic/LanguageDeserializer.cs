@@ -5236,6 +5236,9 @@ namespace Nikse.SubtitleEdit.Logic
                 case "Main/VideoControls/SelectCurrentElementWhilePlaying":
                     language.Main.VideoControls.SelectCurrentElementWhilePlaying = reader.Value;
                     break;
+                case "Main/VideoControls/FreeMode":
+                    language.Main.VideoControls.FreeMode = reader.Value;
+                    break;
                 case "Main/VideoControls/AutoRepeat":
                     language.Main.VideoControls.AutoRepeat = reader.Value;
                     break;

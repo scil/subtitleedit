@@ -2070,6 +2070,7 @@ namespace Nikse.SubtitleEdit.Forms
             tabPageCreate.Text = _language.VideoControls.Create;
             tabPageAdjust.Text = _language.VideoControls.Adjust;
             checkBoxSyncListViewWithVideoWhilePlaying.Text = _language.VideoControls.SelectCurrentElementWhilePlaying;
+            checkBoxFreeMode.Text = _language.VideoControls.FreeMode;
             if (_videoFileName == null)
             {
                 labelVideoInfo.Text = _languageGeneral.NoVideoLoaded;
@@ -37221,5 +37222,11 @@ namespace Nikse.SubtitleEdit.Forms
                 }
             }
         }
+
+        private void checkBoxFreeMode_CheckedChanged(object sender, EventArgs e)
+        {
+            audioVisualizer.FreeSelectionMode = checkBoxFreeMode.Checked;
+        }
+
     }
 }

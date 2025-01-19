@@ -2059,6 +2059,7 @@
                 public string Create { get; set; }
                 public string Adjust { get; set; }
                 public string SelectCurrentElementWhilePlaying { get; set; }
+                public string FreeMode { get; set; }
 
                 //translation helper
                 public string AutoRepeat { get; set; }
