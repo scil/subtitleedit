@@ -839,7 +839,10 @@ namespace Nikse.SubtitleEdit.Controls
                     var currentRegionWidth = currentRegionRight - currentRegionLeft;
                     if (currentRegionRight >= 0 && currentRegionLeft <= Width)
                     {
-                        using (var brush = new SolidBrush(Color.FromArgb(128, 255, 255, 255)))
+                        // Use different colors in Free Selection mode
+                        using (var brush = new SolidBrush(FreeSelectionMode 
+                                   ? Color.FromArgb(128, 255, 180, 180)  // 使用不同颜色表示自由选择模式
+                                   : Color.White))
                         {
                             graphics.FillRectangle(brush, currentRegionLeft, 0, currentRegionWidth, graphics.VisibleClipBounds.Height);
                         }
@@ -1201,6 +1204,19 @@ namespace Nikse.SubtitleEdit.Controls
                 Cursor = Cursors.VSplit;
                 double seconds = RelativeXPositionToSeconds(e.X);
                 var milliseconds = (int)(seconds * TimeCode.BaseUnit);
+
+                // In Free Selection mode, start a new selection directly;
+                // no longer set mouseDownParagraphType which affects actions in WaveformMouseMove,
+                // such as moving the entire paragraph or changing the start or end of the current paragraph
+                if (FreeSelectionMode && AllowNewSelection)
+                {
+                    NewSelectionParagraph = null;
+                    _mouseDownParagraph = null;
+                    _mouseMoveStartX = e.X;
+                    _mouseMoveEndX = e.X;
+                    _mouseDown = true;
+                    return;
+                }
 
                 if (SetParagraphBorderHit(milliseconds, NewSelectionParagraph))
                 {
@@ -1922,6 +1938,8 @@ namespace Nikse.SubtitleEdit.Controls
                                 }
                             }
 
+                    // 仅在非自由选择模式下进行重叠检查
+                            if(!FreeSelectionMode){
                             if (PreventOverlap && endTotalSeconds * TimeCode.BaseUnit >= _wholeParagraphMaxMilliseconds)
                             {
                                 NewSelectionParagraph.EndTime.TotalMilliseconds = _wholeParagraphMaxMilliseconds - 1;
@@ -1931,6 +1949,7 @@ namespace Nikse.SubtitleEdit.Controls
                             {
                                 NewSelectionParagraph.StartTime.TotalMilliseconds = _wholeParagraphMinMilliseconds + 1;
                                 Invalidate();
+                            }
                             }
                         }
                     }
@@ -2744,5 +2763,8 @@ namespace Nikse.SubtitleEdit.Controls
                 ShotChangeSnapPixels = 8;
             }
         }
+
+        // Free Selection mode switch
+        public bool FreeSelectionMode { get; set; } = true;
     }
 }
