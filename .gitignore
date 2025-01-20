@@ -17,6 +17,7 @@ bin/
 obj/
 SubtitleEdit-*-setup.exe
 SubtitleEdit-*.zip
+/SubtitleEdit_Portable
 .vscode/
 
  # JetBrains Rider
