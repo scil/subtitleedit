@@ -32,6 +32,7 @@ using Nikse.SubtitleEdit.Core.Settings;
 using MessageBox = Nikse.SubtitleEdit.Forms.SeMsgBox.MessageBox;
 using Timer = System.Windows.Forms.Timer;
 using System.Diagnostics;
+using Nikse.SubtitleEdit.Forms.AudioToText;
 
 namespace Nikse.SubtitleEdit.Forms.Ocr
 {
@@ -4780,6 +4781,24 @@ namespace Nikse.SubtitleEdit.Forms.Ocr
                     _ocrService = new GoogleOcrService(new GoogleCloudVisionApi(textBoxCloudVisionApiKey.Text));
                 }
             }
+            else if (_ocrMethodIndex == _ocrMethodPaddle)
+            {
+                if (!Directory.Exists(Configuration.PaddleOcrDirectory))
+                {
+                    if (MessageBox.Show(string.Format(LanguageSettings.Current.Settings.DownloadX, "Paddle OCR models"), "Subtitle Edit", MessageBoxButtons.YesNoCancel) != DialogResult.Yes)
+                    {
+                        return;
+                    }
+
+                    using (var form = new DownloadPaddleOcrModels())
+                    {
+                        if (form.ShowDialog(this) != DialogResult.OK)
+                        {
+                            return;
+                        }
+                    }
+                }
+            }
 
             progressBar1.Maximum = max;
             progressBar1.Value = 0;
@@ -6488,14 +6507,15 @@ namespace Nikse.SubtitleEdit.Forms.Ocr
             string line;
             try
             {
-                line = _paddleOcr.Ocr(bitmap, language ?? "en");
+                line = _paddleOcr.Ocr(bitmap, language ?? "en", checkBoxPaddleOcrUseGpu.Checked);
             }
             catch (Exception exception)
             {
                 MessageBox.Show(exception.Message + Environment.NewLine + Environment.NewLine +
                     "Make sure you hve installed PaddleOCR" + Environment.NewLine + Environment.NewLine +
                     "Read more here: https://www.paddlepaddle.org.cn/en/install/quick?docurl=/documentation/docs/en/install/pip/windows-pip_en.html" + Environment.NewLine+ Environment.NewLine +
-                    "Requires Python + pip.");
+                    "Requires Python + pip." + Environment.NewLine + 
+                    _paddleOcr.Error);
 
                 ButtonPauseClick(null, null);
                 return string.Empty;
@@ -7905,6 +7925,10 @@ namespace Nikse.SubtitleEdit.Forms.Ocr
             else if (Configuration.Settings.VobSubOcr.LastOcrMethod == "Tesseract4" && comboBoxOcrMethod.Items.Count > _ocrMethodTesseract302)
             {
                 comboBoxOcrMethod.SelectedIndex = _ocrMethodTesseract5;
+            }
+            else if (Configuration.Settings.VobSubOcr.LastOcrMethod == "PaddleOCR" && comboBoxOcrMethod.Items.Count > _ocrMethodPaddle)
+            {
+                comboBoxOcrMethod.SelectedIndex = _ocrMethodPaddle;
             }
             else
             {
