@@ -842,7 +842,7 @@ namespace Nikse.SubtitleEdit.Controls
                         // Use different colors in Free Selection mode
                         using (var brush = new SolidBrush(FreeSelectionMode 
                                    ? Color.FromArgb(128, 255, 180, 180)  // 使用不同颜色表示自由选择模式
-                                   : Color.White))
+                                   : Color.FromArgb(128, 255, 255, 255)))
                         {
                             graphics.FillRectangle(brush, currentRegionLeft, 0, currentRegionWidth, graphics.VisibleClipBounds.Height);
                         }
